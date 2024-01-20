@@ -27,6 +27,7 @@
 #include <unicode/coll.h>
 #include <unicode/uchar.h>
 #include <unicode/utf8.h>
+#include <unicode/stringpiece.h>
 
 namespace {
 bool is_whitespace(std::string_view str) {
@@ -44,7 +45,7 @@ int compare(std::string_view a, std::string_view b) {
 	UErrorCode err = U_ZERO_ERROR;
 	thread_local std::unique_ptr<icu::Collator> collator(icu::Collator::createInstance(err));
 	collator->setStrength(icu::Collator::PRIMARY);
-	int result = collator->compareUTF8(a, b, err);
+	int result = collator->compareUTF8(icu::StringPiece(a.data()), icu::StringPiece(b.data()), err);
 	if (U_FAILURE(err)) throw agi::InternalError(u_errorName(err));
 	return result;
 }
