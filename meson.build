@@ -1,7 +1,7 @@
 project('Aegisub', ['c', 'cpp'],
         license: 'BSD-3-Clause',
         meson_version: '>=0.57.0',
-        default_options: ['cpp_std=c++20', 'buildtype=debugoptimized'],
+        default_options: ['cpp_std=c++20', 'buildtype=debugoptimized', 'cpp_eh=default'],
         version: '3.2.2')
 
 cmake = import('cmake')
